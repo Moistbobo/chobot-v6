@@ -9,7 +9,7 @@ const events: { [index: string]: any } = {
 };
 
 const runBot = () => {
-  const client = new Client({ intents: [1, 2, 512] });
+  const client = new Client({ intents: [1, 2, 512, 32768] });
 
   Object.keys(events).forEach((e) => {
     console.log("[CHOBOT]: Registering", e);
