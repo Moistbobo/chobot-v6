@@ -1,0 +1,37 @@
+{
+  "name": "chobot-v6",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "tsc -b && node ./dist/index.js"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^5.49.0",
+    "@typescript-eslint/parser": "^5.49.0",
+    "eslint": "8.30.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-import-resolver-typescript": "^3.5.3",
+    "eslint-plugin-import": "^2.27.5",
+    "eslint-plugin-prettier": "^4.2.1",
+    "module-alias": "^2.2.2",
+    "nodemon": "^2.0.20",
+    "prettier": "^2.8.3",
+    "typescript": "^4.9.4"
+  },
+  "_moduleAliases": {
+    "config": "dist/src/config",
+    "commands": "dist/src/commands",
+    "utils": "dist/src/utils",
+    "mongod": "dist/src/mongod",
+    "types": "dist/src/types"
+  },
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3",
+    "erlpack": "^0.1.4",
+    "zlib-sync": "^0.1.7"
+  }
+}
