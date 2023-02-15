@@ -1,0 +1,6 @@
+{
+  "name": "Caphras",
+  "triggers": ["c","cap"],
+  "description": "Check the status of the bot",
+  "example": ".st, .sta, .status"
+}
