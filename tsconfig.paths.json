@@ -1,0 +1,44 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "paths": {
+      "lib": [
+        "./lib"
+      ],
+      "lib/*": [
+        "./lib/*"
+      ],
+      "config": [
+        "./config"
+      ],
+      "config/*":[
+        "./config/*"
+      ],
+      "commands":[
+        "./commands"
+      ],
+      "commands/*": [
+        "./commands/*"
+      ],
+      "mongod": [
+        "./mongod"
+      ],
+      "mongod/*": [
+        "./mongod/*"
+      ],
+      "types": [
+        "./types"
+      ],
+      "types/*": [
+        "./types/*"
+      ],
+      "locales": [
+        "./locales"
+      ],
+      "jest/*": [
+        "../jest/*"
+      ]
+    }
+  }
+}
+

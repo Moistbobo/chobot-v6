@@ -1,7 +1,6 @@
 import { Message } from "discord.js";
-import findMemberInServer from "../../utils/FindMemberInServer";
-import EnvConfig from "../../../config/envConfig";
-import GetFirstWordFromContent from "../../utils/GetFirstWordFromContent";
+import EnvConfig from "config/envConfig";
+import GetFirstWordFromContent from "lib/utils/GetFirstWordFromContent";
 
 async function handleMessageCreate(message: Message) {
   const { content } = message;
@@ -10,6 +9,7 @@ async function handleMessageCreate(message: Message) {
   if (content[0] !== EnvConfig.BOT_PREFIX) return;
 
   const processedCommand = GetFirstWordFromContent(content);
+  console.log(processedCommand);
 }
 
 export default handleMessageCreate;

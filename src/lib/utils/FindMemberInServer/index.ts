@@ -1,4 +1,4 @@
-import { ClientUser, Guild, GuildMember, Message, User } from "discord.js";
+import { GuildMember, Message } from "discord.js";
 
 type SearchParams = {
   member: GuildMember;

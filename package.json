@@ -28,7 +28,7 @@
   "_moduleAliases": {
     "config": "dist/src/config",
     "commands": "dist/src/commands",
-    "utils": "dist/src/utils",
+    "lib": "dist/src/lib",
     "mongod": "dist/src/mongod",
     "types": "dist/src/types"
   },

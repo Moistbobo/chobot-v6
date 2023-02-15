@@ -1,7 +1,7 @@
-import { Client, ClientEvents } from "discord.js";
-import EnvConfig from "./config/envConfig";
-import handleReady from "./lib/events/ready";
-import handleMessageCreate from "./lib/events/messageCreate";
+import { Client } from "discord.js";
+import EnvConfig from "config/envConfig";
+import handleReady from "lib/events/ready";
+import handleMessageCreate from "lib/events/messageCreate";
 
 const events: { [index: string]: any } = {
   ready: handleReady,

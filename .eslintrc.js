@@ -26,6 +26,7 @@ module.exports = {
     "no-underscore-dangle": 0,
     "import/no-extraneous-dependencies": 0,
     "no-shadow": "off",
+    "@typescript-eslint/no-unused-vars": "error",
   },
   settings: {
     "import/resolver": {
