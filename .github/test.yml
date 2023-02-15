@@ -1,0 +1,25 @@
+name: Run tests with coverage and upload to codecov
+on:
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
+    branches:
+      - 'master'
+jobs:
+  tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: Install modules
+        run: yarn
+      - name: Run jest tests
+        run: yarn jest --coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v3
+
+
