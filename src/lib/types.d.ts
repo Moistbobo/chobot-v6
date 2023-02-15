@@ -14,6 +14,11 @@ export interface CommandArgs {
 
 export interface Command {
   /**
+   * Unique id for the command
+   */
+  id: string;
+
+  /**
    * The name of the command.
    */
   name: string;

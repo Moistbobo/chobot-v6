@@ -1,0 +1,6 @@
+{
+  "name": "Patchnotes",
+  "triggers": ["pn"],
+  "description": "Retrieve BDO patchnotes. Past patchnotes caps at 15",
+  "example": ".pn 5 - retrieve the past 5 patchnotes"
+}

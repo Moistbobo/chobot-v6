@@ -7,6 +7,7 @@ const i18n = i18next.init({
   resources: {
     en,
   },
+  defaultNS: "status",
   compatibilityJSON: "v3",
 });
 
