@@ -1,5 +1,5 @@
 import { Client, ClientEvents } from "discord.js";
-import envConfig from "./config/envConfig";
+import EnvConfig from "./config/envConfig";
 import handleReady from "./lib/events/ready";
 import handleMessageCreate from "./lib/events/messageCreate";
 
@@ -17,7 +17,7 @@ const runBot = () => {
   });
 
   // mongodb.connect();
-  return client.login(envConfig.BOT_TOKEN);
+  return client.login(EnvConfig.BOT_TOKEN);
 };
 
 export default runBot;
