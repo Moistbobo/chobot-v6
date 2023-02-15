@@ -30,12 +30,15 @@
     "commands": "dist/src/commands",
     "lib": "dist/src/lib",
     "mongod": "dist/src/mongod",
-    "types": "dist/src/types"
+    "types": "dist/src/types",
+    "assets": "dist/src/assets"
+
   },
   "dependencies": {
     "discord.js": "^14.7.1",
     "dotenv": "^16.0.3",
     "erlpack": "^0.1.4",
+    "i18next": "^22.4.9",
     "zlib-sync": "^0.1.7"
   }
 }

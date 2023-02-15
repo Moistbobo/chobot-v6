@@ -1,0 +1,6 @@
+{
+  "name": "Status",
+  "triggers": ["st","sta"],
+  "description": "Check the status of the bot",
+  "example": ".st, .sta, .status"
+}

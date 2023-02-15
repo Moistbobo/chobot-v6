@@ -1,6 +1,8 @@
 import { Message } from "discord.js";
 import EnvConfig from "config/envConfig";
 import GetFirstWordFromContent from "lib/utils/GetFirstWordFromContent";
+import { CommandArgs } from "lib/types";
+import FindMatchingCommand from "lib/utils/FindMatchingCommand";
 
 async function handleMessageCreate(message: Message) {
   const { content } = message;
@@ -8,8 +10,23 @@ async function handleMessageCreate(message: Message) {
   // the bot prefix
   if (content[0] !== EnvConfig.BOT_PREFIX) return;
 
-  const processedCommand = GetFirstWordFromContent(content);
-  console.log(processedCommand);
+  const commandToSearch = GetFirstWordFromContent(content);
+
+  const command = FindMatchingCommand(commandToSearch);
+
+  // exit early if no matching command is found
+  if (!command) return;
+
+  // Build command args
+  const commandArgs: CommandArgs = {
+    message,
+    messageContent: message.content.replace(
+      `${EnvConfig.BOT_PREFIX}${commandToSearch}`,
+      ""
+    ),
+  };
+
+  await command.action(commandArgs);
 }
 
 export default handleMessageCreate;
