@@ -27,6 +27,8 @@ module.exports = {
     "import/no-extraneous-dependencies": 0,
     "no-shadow": "off",
     "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-explicit-any": 0,
+    "no-console": 0,
   },
   settings: {
     "import/resolver": {
