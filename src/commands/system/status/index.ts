@@ -6,6 +6,9 @@ const { t } = i18next;
 
 const COMMAND_NAME = "status";
 
+/**
+ * Command definition for the Status command.
+ */
 const Status: Command = {
   id: "SYSTEM_001",
   name: t(`${COMMAND_NAME}:name`),

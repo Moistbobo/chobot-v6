@@ -4,7 +4,7 @@ import _ from "lodash";
 import { CommandArgs } from "lib/types";
 import { EmbedBuilder } from "discord.js";
 
-const updatesUrl =
+const UPDATES_URL =
   "https://www.naeu.playblackdesert.com/en-US/News/Notice?boardType=2";
 
 const getName = (element: any) => {
@@ -20,7 +20,7 @@ const mapLinks = (links: any[]) =>
 
 const getPatchNotesNew = async (args: any, history: number) => {
   try {
-    const fetchResult = await fetch(updatesUrl);
+    const fetchResult = await fetch(UPDATES_URL);
     const resultsText = await fetchResult.text();
     const cheerioResult = cheerio.load(resultsText);
 
@@ -39,6 +39,10 @@ const getPatchNotesNew = async (args: any, history: number) => {
   }
 };
 
+/**
+ * Action implementation of the BDO Patchnotes command.
+ * @param args {CommandArgs} - An object containing the input message and other contextual values to perform the action.
+ */
 const action = async (args: CommandArgs) => {
   const {
     message: { content, channel },

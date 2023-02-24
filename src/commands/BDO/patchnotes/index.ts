@@ -6,6 +6,9 @@ const { t } = i18next;
 
 const COMMAND_NAME = "patchnotes";
 
+/**
+ * Command definition for the BDO Patchnotes command.
+ */
 const Patchnotes: Command = {
   id: "BDO_001",
   name: t(`${COMMAND_NAME}:name`),
