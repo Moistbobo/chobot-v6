@@ -93,3 +93,11 @@ export const formatNumberToHumanReadable = (input: number): string => {
 
   return parseFloat(input.toFixed(0)).toLocaleString('en-US');
 };
+
+/**
+ * Check if a string starts with a number.
+ */
+export const startsWithNumber = (content: string): boolean => {
+  const regex = /^[0-9]/;
+  return regex.test(content);
+};

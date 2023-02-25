@@ -4,6 +4,7 @@ import {
   extractArguments,
   formatNumberToHumanReadable,
   parseSaleParametersToNumber,
+  startsWithNumber,
 } from 'commands/BDO/value/utils/tools';
 
 import {
@@ -28,9 +29,9 @@ const action = (args: CommandArgs) => {
 
   const { t } = i18next;
 
-  if (content.split(' ').length < 2) return;
-
   const saleParameters = extractArguments(content);
+  if (!startsWithNumber(saleParameters.listingValueString)) return;
+
   const parsedSaleAmount = _.flow(cleanInput, parseSaleParametersToNumber)(saleParameters);
 
   const baseSellPrice = calculateBaseSaleValue(parsedSaleAmount);
