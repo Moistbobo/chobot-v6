@@ -1,4 +1,4 @@
-import { Message } from "discord.js";
+import { Message } from 'discord.js';
 
 export interface CommandArgs {
   /**
@@ -13,6 +13,11 @@ export interface CommandArgs {
 }
 
 export interface Command {
+  /**
+   * Unique id for the command
+   */
+  id: string;
+
   /**
    * The name of the command.
    */

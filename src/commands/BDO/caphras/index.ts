@@ -7,6 +7,7 @@ const { t } = i18next;
 const COMMAND_NAME = "caphras";
 
 const Caphras: Command = {
+  id: "BDO_002",
   name: t(`${COMMAND_NAME}:name`),
   triggers: t(`${COMMAND_NAME}:triggers`, { returnObjects: true }),
   description: t(`${COMMAND_NAME}:description`),

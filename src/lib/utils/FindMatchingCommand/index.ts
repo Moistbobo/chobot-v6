@@ -1,4 +1,4 @@
-import Commands from "commands";
+import Commands from 'commands';
 
 /**
  * Find the matching command from the user's input.
@@ -9,7 +9,7 @@ import Commands from "commands";
  */
 const FindMatchingCommand = (searchTerm: string) => {
   // search by command name
-  const command = Commands.find((command) => {
+  const command = Commands.find(command => {
     return (
       // matches name
       command.name.toLowerCase() === searchTerm ||
