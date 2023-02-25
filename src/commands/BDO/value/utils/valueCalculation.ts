@@ -15,6 +15,7 @@ export const calculateValuePackBonus = (sellingPrice: number) => sellingPrice * 
 /**
  * Calculate the fame bonus of a marketplace sale.
  * @param {number} sellingPrice - The amount of silver an item was sold for.
+ * @param {number} fameLevel - The fameLevel of the user.
  */
 export const calculateFameBonus = (sellingPrice: number, fameLevel?: number) => {
   if (!fameLevel) return 0;
