@@ -1,5 +1,8 @@
 import { GuildMember, Message } from 'discord.js';
 
+/**
+ * An interface representing the search parameters to find a given user in a server.
+ */
 type SearchParams = {
   member: GuildMember;
 
@@ -22,6 +25,10 @@ function FindByNickname(params: SearchParams) {
   return params.member.nickname === params.searchTerms;
 }
 
+/**
+ * A function that attempts to find a mentioned user in a given message.
+ * @param {Message} msg - A discord message.
+ */
 async function findMemberInServer(msg: Message) {
   const { content, guild } = msg;
 
@@ -32,8 +39,7 @@ async function findMemberInServer(msg: Message) {
   const members = await guild.members.fetch({ force: true });
   const mentionedUser = msg.mentions.members && msg.mentions.members.first();
 
-  // if no user was explicitly mentioned, try to find them from the list of users
-  // by checking the username, nickname, or tag
+  // if discord mention object is found, try to the user by checking the username, nickname, or tag
   if (!mentionedUser) {
     return members.find((member: GuildMember) => {
       const _params: SearchParams = {

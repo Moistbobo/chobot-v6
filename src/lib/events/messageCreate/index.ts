@@ -4,6 +4,9 @@ import GetFirstWordFromContent from 'lib/utils/GetFirstWordFromContent';
 import { CommandArgs } from 'lib/types';
 import FindMatchingCommand from 'lib/utils/FindMatchingCommand';
 
+/**
+ * An event handler for onMessageCreate events. {@link runBot}
+ */
 async function handleMessageCreate(message: Message) {
   const { content } = message;
   // don't do anything if the first character of the message does not equal
