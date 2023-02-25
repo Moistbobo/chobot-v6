@@ -45,7 +45,7 @@ const action = (args: CommandArgs) => {
     }),
   );
 
-  if (saleParameters.listingValueString)
+  if (saleParameters.fameLevel)
     embed.setFooter({
       text: t('value:footer', {
         FAME_LEVEL: saleParameters.fameLevel,
