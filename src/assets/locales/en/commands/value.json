@@ -1,0 +1,9 @@
+{
+  "name": "Value",
+  "triggers": ["v", "val"],
+  "description": "Calculate the silver you will get from selling something on the marketplace.",
+  "example": ".v 1b 1 - Calculate the silver from a 1 billion silver sale with fame level 1 bonus.",
+  "title": "Value result",
+  "response": "Listing Price: `{{LISTING_PRICE}}`\n\n`{{BASE_PROFIT}}` - Base Profit\n`{{PROFIT_VP}}` - With VP",
+  "footer": "With fame level {{FAME_LEVEL}} ({{FAME_BONUS_PERCENT}}%"
+}
