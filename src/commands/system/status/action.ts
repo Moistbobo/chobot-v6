@@ -1,7 +1,7 @@
 /**
  * Action definition for the Status command
  */
-import { CommandArgs } from "lib/types";
+import { CommandArgs } from 'lib/types';
 
 /**
  * Action implementation of the Status command.

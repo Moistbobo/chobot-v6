@@ -1,42 +1,22 @@
-import fetch from "node-fetch";
-import cheerio from "cheerio";
-import _ from "lodash";
-import { CommandArgs } from "lib/types";
-import { EmbedBuilder } from "discord.js";
+import { CommandArgs } from 'lib/types';
+import { EmbedBuilder } from 'discord.js';
+import _ from 'lodash';
+import getPatchNotesHtml from 'commands/BDO/patchnotes/utils/getPatchNotesHtml';
+import extractPatchNotesElements from 'commands/BDO/patchnotes/utils/extractPatchNotesElements';
+import parsePatchNotes from 'commands/BDO/patchnotes/utils/parsePatchNotes';
+import { Element } from 'cheerio';
 
-const UPDATES_URL =
-  "https://www.naeu.playblackdesert.com/en-US/News/Notice?boardType=2";
+import i18next from 'i18next';
 
-const getName = (element: any) => {
-  return _.get(element, "children[3].children[1].children[0].children[0].data");
-};
+/**
+ * Parse user input and get the max amount of patch notes to show.
+ * @param {string} content - The contents of the user's input.
+ */
+const parseLimitFromInput = (content: string) => {
+  const [, limit] = content.split(' ');
 
-const getLink = (element: any) => _.get(element, "attribs.href");
-
-const mapLinks = (links: any[]) =>
-  links
-    .map((x) => ({ name: getName(x), link: getLink(x) }))
-    .filter((x) => x.name);
-
-const getPatchNotesNew = async (args: any, history: number) => {
-  try {
-    const fetchResult = await fetch(UPDATES_URL);
-    const resultsText = await fetchResult.text();
-    const cheerioResult = cheerio.load(resultsText);
-
-    const btnDetail = cheerioResult("a[name=btnDetail]").toArray();
-
-    const newsLinks = mapLinks(btnDetail);
-
-    newsLinks.length = history ? Math.min(history || newsLinks.length) : 1;
-
-    const mappedLinks = newsLinks.map((x) => `${x.name}\n${x.link}`);
-
-    return mappedLinks.join("\n\n");
-  } catch (err: any) {
-    console.log(err);
-    return "Unable to retrieve patch notes";
-  }
+  // enforce a hard cap of 5 patchnotes, to reduce spam.
+  return Math.min(parseInt(limit, 10) || 1, 5);
 };
 
 /**
@@ -48,14 +28,25 @@ const action = async (args: CommandArgs) => {
     message: { content, channel },
   } = args;
 
-  const [, numPN] = content.split(" ");
-  const history = Math.min(parseFloat(numPN) || 1, 15);
+  const { t } = i18next;
 
-  const patchNotes = await getPatchNotesNew(args, history);
+  const result = await getPatchNotesHtml();
 
-  const embed = new EmbedBuilder()
-    .setTitle("Patchnotes")
-    .setDescription(patchNotes);
+  // Show an error message if the fetch request fails.
+  if (result.isErr())
+    return channel.send(t('patchnotes:error', { ERR_CODE: result.error.message }) as string);
+
+  // Get the max patch notes limit from user input.
+  const limit = parseLimitFromInput(content);
+
+  // Assemble the patch notes data, using _.flow to chain the functions together.
+  const patchnotes = _.flow([
+    extractPatchNotesElements,
+    (elements: Element[]) => parsePatchNotes(elements, limit),
+  ])(result.value.patchNotesHtml);
+
+  // Build the embed message and send to the channel.
+  const embed = new EmbedBuilder().setTitle(t('patchnotes:embedTitle')).setDescription(patchnotes);
 
   return channel.send({ embeds: [embed] });
 };
