@@ -30,10 +30,14 @@ const action = (args: CommandArgs) => {
   const { t } = i18next;
 
   const saleParameters = extractArguments(content);
+
+  // Exit early if the first argument (the sale amount) does not start with a number.
   if (!startsWithNumber(saleParameters.listingValueString)) return;
 
+  // Clean and parse user input into a {@link SaleParameters} object.
   const parsedSaleAmount = _.flow(cleanInput, parseSaleParametersToNumber)(saleParameters);
 
+  // Calculate all relevant sale amounts and bonuses.
   const baseSellPrice = calculateBaseSaleValue(parsedSaleAmount);
   const valuePackBonus = calculateValuePackBonus(baseSellPrice);
   const fameBonus = calculateFameBonus(baseSellPrice, saleParameters.fameLevel);
@@ -46,6 +50,7 @@ const action = (args: CommandArgs) => {
     }),
   );
 
+  // Add fame level data to footer if it was included in the input
   if (saleParameters.fameLevel)
     embed.setFooter({
       text: t('value:footer', {
