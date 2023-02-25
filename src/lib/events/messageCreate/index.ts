@@ -1,8 +1,8 @@
-import { Message } from "discord.js";
-import EnvConfig from "config/envConfig";
-import GetFirstWordFromContent from "lib/utils/GetFirstWordFromContent";
-import { CommandArgs } from "lib/types";
-import FindMatchingCommand from "lib/utils/FindMatchingCommand";
+import { Message } from 'discord.js';
+import EnvConfig from 'config/envConfig';
+import GetFirstWordFromContent from 'lib/utils/GetFirstWordFromContent';
+import { CommandArgs } from 'lib/types';
+import FindMatchingCommand from 'lib/utils/FindMatchingCommand';
 
 async function handleMessageCreate(message: Message) {
   const { content } = message;
@@ -20,10 +20,7 @@ async function handleMessageCreate(message: Message) {
   // Build command args
   const commandArgs: CommandArgs = {
     message,
-    messageContent: message.content.replace(
-      `${EnvConfig.BOT_PREFIX}${commandToSearch}`,
-      ""
-    ),
+    messageContent: message.content.replace(`${EnvConfig.BOT_PREFIX}${commandToSearch}`, ''),
   };
 
   await command.action(commandArgs);

@@ -1,4 +1,4 @@
-import { GuildMember, Message } from "discord.js";
+import { GuildMember, Message } from 'discord.js';
 
 type SearchParams = {
   member: GuildMember;
@@ -27,7 +27,7 @@ async function findMemberInServer(msg: Message) {
 
   if (!guild || !guild?.available) return null;
 
-  const [hopefullyAUsername] = content.split(" ");
+  const [hopefullyAUsername] = content.split(' ');
 
   const members = await guild.members.fetch({ force: true });
   const mentionedUser = msg.mentions.members && msg.mentions.members.first();
