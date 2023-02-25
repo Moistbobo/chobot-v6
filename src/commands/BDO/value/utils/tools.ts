@@ -8,7 +8,7 @@ interface SaleParameters {
    * The listing value of an item. It can contain a denomination or comma formatting as well.
    * eg 1bil, 1,000,000,000
    */
-  listingValueString: string;
+  saleValueString: string;
 
   /**
    * The fame bonus level to be calculated.
@@ -21,10 +21,10 @@ interface SaleParameters {
  * @param {string} content - The contents of the user's message.
  */
 export const extractArguments = (content: string): SaleParameters => {
-  const [, saleValue, fameLevel] = content.split(' ');
+  const [, saleValueString, fameLevel] = content.split(' ');
 
   return {
-    listingValueString: saleValue,
+    saleValueString,
     fameLevel: fameLevel ? parseInt(fameLevel, 10) : undefined,
   };
 };
@@ -37,7 +37,7 @@ export const cleanInput = (saleParameters: SaleParameters) => {
   return {
     ...saleParameters,
     // remove all commas and -lion and -li suffixes for denominations
-    saleValue: saleParameters.listingValueString
+    saleValueString: saleParameters.saleValueString
       .replace(/,/g, '')
       .replace(/lion/g, '')
       .replace(/il/g, ''),
@@ -49,9 +49,9 @@ export const cleanInput = (saleParameters: SaleParameters) => {
  * @param {SaleParameters} cleanedSaleParameters - a SaleParameters object that has been cleaned by the {@link cleanInput} function
  */
 export const parseSaleParametersToNumber = (cleanedSaleParameters: SaleParameters) => {
-  const { listingValueString } = cleanedSaleParameters;
+  const { saleValueString } = cleanedSaleParameters;
 
-  const saleValueToLower = listingValueString.toLowerCase();
+  const saleValueToLower = saleValueString.toLowerCase();
 
   if (
     saleValueToLower.includes('b') ||
@@ -76,7 +76,7 @@ export const parseSaleParametersToNumber = (cleanedSaleParameters: SaleParameter
     }
   }
 
-  return parseInt(listingValueString, 10);
+  return parseInt(saleValueString, 10);
 };
 
 /**

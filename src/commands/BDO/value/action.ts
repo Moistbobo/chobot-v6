@@ -32,7 +32,7 @@ const action = (args: CommandArgs) => {
   const saleParameters = extractArguments(content);
 
   // Exit early if the first argument (the sale amount) does not start with a number.
-  if (!startsWithNumber(saleParameters.listingValueString)) return;
+  if (!startsWithNumber(saleParameters.saleValueString)) return;
 
   // Clean and parse user input into a {@link SaleParameters} object.
   const parsedSaleAmount = _.flow(cleanInput, parseSaleParametersToNumber)(saleParameters);
