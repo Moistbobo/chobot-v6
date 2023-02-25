@@ -1,13 +1,17 @@
 import { CommandArgs } from 'lib/types';
 import {
-  calculateBaseSaleValue,
-  calculateFameBonus,
-  calculateValuePackBonus,
   cleanInput,
   extractArguments,
   formatNumberToHumanReadable,
-  parseInputSaleAmount,
+  parseSaleParametersToNumber,
 } from 'commands/BDO/value/utils/tools';
+
+import {
+  calculateBaseSaleValue,
+  calculateFameBonus,
+  calculateValuePackBonus,
+} from 'commands/BDO/value/utils/valueCalculation';
+
 import { EmbedBuilder } from 'discord.js';
 import i18next from 'i18next';
 import { fameMap } from 'commands/BDO/value/utils/constants';
@@ -27,7 +31,7 @@ const action = (args: CommandArgs) => {
   if (content.split(' ').length < 2) return;
 
   const saleParameters = extractArguments(content);
-  const parsedSaleAmount = _.flow(cleanInput, parseInputSaleAmount)(saleParameters);
+  const parsedSaleAmount = _.flow(cleanInput, parseSaleParametersToNumber)(saleParameters);
 
   const baseSellPrice = calculateBaseSaleValue(parsedSaleAmount);
   const valuePackBonus = calculateValuePackBonus(baseSellPrice);
@@ -41,7 +45,7 @@ const action = (args: CommandArgs) => {
     }),
   );
 
-  if (saleParameters.saleValue)
+  if (saleParameters.listingValueString)
     embed.setFooter({
       text: t('value:footer', {
         FAME_LEVEL: saleParameters.fameLevel,

@@ -1,37 +1,57 @@
-import {
-  baseSaleModifier,
-  DENOMINATIONS,
-  denomShorthandMap,
-  fameMap,
-  valuePackBonus,
-} from 'commands/BDO/value/utils/constants';
+import { DENOMINATIONS, denomShorthandMap } from 'commands/BDO/value/utils/constants';
 
+/**
+ * An interface representing the inputs of the value command.
+ */
 interface SaleParameters {
-  saleValue: string;
+  /**
+   * The listing value of an item. It can contain a denomination or comma formatting as well.
+   * eg 1bil, 1,000,000,000
+   */
+  listingValueString: string;
 
-  fameLevel: number;
+  /**
+   * The fame bonus level to be calculated.
+   */
+  fameLevel?: number;
 }
 
+/**
+ * A function that builds a {@link SaleParameters} object from the user's input.
+ * @param {string} content - The contents of the user's message.
+ */
 export const extractArguments = (content: string): SaleParameters => {
   const [, saleValue, fameLevel] = content.split(' ');
 
   return {
-    saleValue,
-    fameLevel: parseInt(fameLevel, 10),
+    listingValueString: saleValue,
+    fameLevel: fameLevel ? parseInt(fameLevel, 10) : undefined,
   };
 };
 
+/**
+ * A function that removes unwanted characters from a user's input.
+ * @param {SaleParameters} saleParameters - Sale parameters extracted from the message content.
+ */
 export const cleanInput = (saleParameters: SaleParameters) => {
   return {
     ...saleParameters,
-    saleValue: saleParameters.saleValue.replace(/,/g, '').replace(/lion/g, '').replace(/il/g, ''),
+    // remove all commas and -lion and -li suffixes for denominations
+    saleValue: saleParameters.listingValueString
+      .replace(/,/g, '')
+      .replace(/lion/g, '')
+      .replace(/il/g, ''),
   };
 };
 
-export const parseInputSaleAmount = (saleParameters: SaleParameters) => {
-  const { saleValue } = saleParameters;
+/**
+ * Parses the saleParameter object into a number value for further calculation.
+ * @param {SaleParameters} cleanedSaleParameters - a SaleParameters object that has been cleaned by the {@link cleanInput} function
+ */
+export const parseSaleParametersToNumber = (cleanedSaleParameters: SaleParameters) => {
+  const { listingValueString } = cleanedSaleParameters;
 
-  const saleValueToLower = saleValue.toLowerCase();
+  const saleValueToLower = listingValueString.toLowerCase();
 
   if (
     saleValueToLower.includes('b') ||
@@ -56,30 +76,20 @@ export const parseInputSaleAmount = (saleParameters: SaleParameters) => {
     }
   }
 
-  return parseInt(saleValue, 10);
+  return parseInt(listingValueString, 10);
 };
 
-export const calculateBaseSaleValue = (listingAmount: number) => listingAmount * baseSaleModifier;
-
-export const calculateValuePackBonus = (sellingPrice: number) => sellingPrice * valuePackBonus;
-
-export const calculateFameBonus = (sellingPrice: number, fameLevel?: number) => {
-  if (!fameLevel) return 0;
-  return sellingPrice * fameMap[fameLevel];
-};
-
-export const startsWithNumber = (content: string): boolean => {
-  const regex = /^[0-9]/;
-  return regex.test(content);
-};
-
-export const formatNumberToHumanReadable = (num: number): string => {
-  if (num >= 1000000000) {
-    return `${num / 1000000000}bil`;
+/**
+ * Formats a number to a human-readable value by using commas to separate thousands or bil/mil shorthands.
+ * @param {number} input - The number to human-readableize.
+ */
+export const formatNumberToHumanReadable = (input: number): string => {
+  if (input >= 1000000000) {
+    return `${input / 1000000000}bil`;
   }
-  if (num >= 1000000) {
-    return `${num / 1000000}mil`;
+  if (input >= 1000000) {
+    return `${input / 1000000}mil`;
   }
 
-  return parseFloat(num.toFixed(0)).toLocaleString('en-US');
+  return parseFloat(input.toFixed(0)).toLocaleString('en-US');
 };
